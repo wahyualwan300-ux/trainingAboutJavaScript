@@ -14,6 +14,7 @@ Repositori ini berisi dokumentasi dan kode latihan harian saya selama mempelajar
 - [7. Konverter Celsius ke Fahrenheit (convertCtoF)](#7-konverter-celsius-ke-fahrenheit-convertctof)
 - [8. Card Counting Assistant (Penghitung Kartu Blackjack)](#8-card-counting-assistant-penghitung-kartu-blackjack)
 - [9. Algoritma Pemotong String (Truncate a String Algorithm)](#9-algoritma-pemotong-string-truncate-a-string-algorithm)
+- [10. Kalkulator Tahun Kabisat (Leap Year Calculator)](#10-kalkulator-tahun-kabisat-leap-year-calculator)
 
 ---
 
@@ -497,8 +498,15 @@ function truncateString(string, number) {
   }
 }
 
-let result = truncateString("A-tisket a-tasket A green and yellow basket", 8);
-console.log(result);
+let result1 = truncateString("A-tisket a-tasket A green and yellow basket", 8),
+    result2 = truncateString("Peter Piper picked a peck of pickled peppers", 11),
+    result3 = truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length),
+    result4 = truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2),
+    result5 = truncateString("A-", 1),
+    result6 = truncateString("Absolutely Longer", 2);
+    
+console.log(`${result1} \n${result2} \n${result3} \n${result4} \n${result5} \n${result6}`);
+
 ```
 
 #### Cara 2: Menggunakan Ternary Operator (Pendekatan Alternatif)
@@ -508,12 +516,83 @@ function truncateString(string, number) {
   return string.length > number ? string.slice(0, number) + "..." : string;
 }
 
-let result = truncateString("A-tisket a-tasket A green and yellow basket", 8);
-console.log(result);
+let result1 = truncateString("A-tisket a-tasket A green and yellow basket", 8),
+    result2 = truncateString("Peter Piper picked a peck of pickled peppers", 11),
+    result3 = truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length),
+    result4 = truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2),
+    result5 = truncateString("A-", 1),
+    result6 = truncateString("Absolutely Longer", 2);
+    
+console.log(`${result1} \n${result2} \n${result3} \n${result4} \n${result5} \n${result6}`);
+
 ```
 
 ### Hasil Output
 
 ```text
-A-tisket...
+A-tisket... 
+Peter Piper... 
+A-tisket a-tasket A green and yellow basket 
+A-tisket a-tasket A green and yellow basket 
+A... 
+Ab...
 ```
+
+---
+
+## 10. Kalkulator Tahun Kabisat (Leap Year Calculator)
+
+Pada latihan ini, saya belajar membuat fungsi logika untuk menentukan apakah suatu tahun merupakan tahun kabisat (*leap year*) berdasarkan aturan keterbagian tahun 4, 100, dan 400.
+
+### Objective & User Stories
+1. Mendefinisikan fungsi `isLeapYear` yang menerima argumen angka berupa tahun.
+2. Mendeklarasikan variabel `year` di luar fungsi untuk menyimpan nilai tahun yang diperiksa.
+3. Menggunakan kondisi logika:
+   - Habis dibagi 4 **dan** tidak habis dibagi 100, **atau**
+   - Habis dibagi 400.
+4. Mengembalikan string `[year] is a leap year.` jika tahun kabisat, atau `[year] is not a leap year.` jika bukan.
+5. Memanggil fungsi `isLeapYear(year)`, menyimpannya ke variabel `result`, dan mencetaknya ke konsol menggunakan `console.log()`.
+
+### Solusi Kode (Pendekatan Utama & Alternatif Ternary)
+
+#### Cara 1: Menggunakan If-Else & Logical Operators (Pendekatan Utama)
+
+```javascript
+function isLeapYear(number) {
+  if ((number % 4 === 0 && number % 100 !== 0) || (number % 400 === 0)) {
+    return `${number} is a leap year.`;
+  } else {
+    return `${number} is not a leap year.`;
+  }
+}
+
+let year = 1900, year1 = 2024, year2 = 2000;
+let result = isLeapYear(year),
+    result1 = isLeapYear(year1),
+    result2 = isLeapYear(year2)
+console.log(`${result} \n${result1} \n${result2}`);
+```
+
+#### Cara 2: Menggunakan Ternary Operator (Pendekatan Alternatif)
+
+```javascript
+function isLeapYear(number) {
+  const isLeap = (number % 4 === 0 && number % 100 !== 0) || (number % 400 === 0);
+  return `${number} is${isLeap ? "a" : "not a"} leap year.`;
+}
+
+let year = 1900, year1 = 2024, year2 = 2000;
+let result = isLeapYear(year),
+    result1 = isLeapYear(year1),
+    result2 = isLeapYear(year2)
+console.log(`${result} \n${result1} \n${result2}`);
+```
+
+### Hasil Output
+
+```text
+1900 is not a leap year. 
+2024 is a leap year. 
+2000 is a leap year.
+```
+
