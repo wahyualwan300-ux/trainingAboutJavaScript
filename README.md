@@ -15,6 +15,7 @@ Repositori ini berisi dokumentasi dan kode latihan harian saya selama mempelajar
 - [8. Card Counting Assistant (Penghitung Kartu Blackjack)](#8-card-counting-assistant-penghitung-kartu-blackjack)
 - [9. Algoritma Pemotong String (Truncate a String Algorithm)](#9-algoritma-pemotong-string-truncate-a-string-algorithm)
 - [10. Kalkulator Tahun Kabisat (Leap Year Calculator)](#10-kalkulator-tahun-kabisat-leap-year-calculator)
+- [11. Alat Konfirmasi Akhir String (Confirm the Ending)](#11-alat-konfirmasi-akhir-string-confirm-the-ending)
 
 ---
 
@@ -594,5 +595,54 @@ console.log(`${result} \n${result1} \n${result2}`);
 1900 is not a leap year. 
 2024 is a leap year. 
 2000 is a leap year.
+```
+
+---
+
+## 11. Alat Konfirmasi Akhir String (Confirm the Ending)
+
+Pada latihan ini, saya belajar memeriksa apakah sebuah string diakhiri dengan string target tertentu tanpa menggunakan metode bawaan `.endsWith()`, melainkan memanfaatkan metode pemotongan string `slice()`.
+
+### Objective & User Stories
+1. Membuat fungsi `confirmEnding` yang menerima dua parameter: string utama (`str`) dan string target (`target`).
+2. Mengembalikan nilai boolean murni `true` jika `str` diakhiri dengan `target`, dan `false` jika tidak.
+3. Dilarang menggunakan metode `.endsWith()`, sebagai gantinya menggunakan metode `slice(-target.length)`.
+
+### Solusi Kode (Pendekatan Standar & Ringkas)
+
+#### Cara 1: Pendekatan Ringkas & Efisien (Pro-Code)
+
+```javascript
+function confirmEnding(str, target) {
+  return str.slice(-target.length) === target;
+}
+
+let emailCheck = confirmEnding("Bastian", "n");
+console.log(`is "Bastian" ending with "n"? \n${emailCheck}`);
+```
+
+#### Cara 2: Pendekatan dengan Logika Terpisah & Format Pesan Custom
+
+```javascript
+function confirmEnding(str, target) {
+  let checkEndingStr = str.slice(-target.length);
+  let check = checkEndingStr === target;
+  return check; 
+}
+
+let result1 = confirmEnding("Bastian", "n");
+let result2 = confirmEnding("Congratulation", "on");
+let result3 = confirmEnding("Connor", "n");
+
+console.log(result1); // true
+console.log(result2); // true
+console.log(result3); // false
+```
+
+### Hasil Output
+
+```text
+is "Bastian" ending with "n"? 
+true
 ```
 
