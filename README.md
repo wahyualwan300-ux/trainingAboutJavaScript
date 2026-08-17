@@ -610,39 +610,57 @@ Pada latihan ini, saya belajar memeriksa apakah sebuah string diakhiri dengan st
 
 ### Solusi Kode (Pendekatan Standar & Ringkas)
 
-#### Cara 1: Pendekatan Ringkas & Efisien (Pro-Code)
+#### Pendekatan Ringkas & Efisien (Pro-Code)
 
 ```javascript
 function confirmEnding(str, target) {
-  return str.slice(-target.length) === target;
+  console.log(`is "${str}" ending with "${target}"?`);
+  return str.slice(- target.length) === target? true:false;
 }
-
-let emailCheck = confirmEnding("Bastian", "n");
-console.log(`is "Bastian" ending with "n"? \n${emailCheck}`);
-```
-
-#### Cara 2: Pendekatan dengan Logika Terpisah & Format Pesan Custom
-
-```javascript
-function confirmEnding(str, target) {
-  let checkEndingStr = str.slice(-target.length);
-  let check = checkEndingStr === target;
-  return check; 
-}
-
-let result1 = confirmEnding("Bastian", "n");
-let result2 = confirmEnding("Congratulation", "on");
-let result3 = confirmEnding("Connor", "n");
-
-console.log(result1); // true
-console.log(result2); // true
-console.log(result3); // false
+let newLine = "\n"
+console.log(confirmEnding("Bastian", "n") + newLine);
+console.log(confirmEnding("Congratulation", "on") + newLine);
+console.log(confirmEnding("Connor", "n") + newLine);
+console.log(confirmEnding("Walking on water and developing software from a specification are easy if both are frozen", "specification") + newLine);
+console.log(confirmEnding("He has to give me a new name", "name") + newLine);
+console.log(confirmEnding("Open sesame", "same") + newLine);
+console.log(confirmEnding("Open sesame", "game") + newLine);
+console.log(confirmEnding("If you want to save our world, you must hurry. We don't know how much longer we can withstand the nothing", "mountain") + newLine);
+console.log(confirmEnding("Abstraction", "action") + newLine);
 ```
 
 ### Hasil Output
 
 ```text
-is "Bastian" ending with "n"? 
+is "Bastian" ending with "n"?
 true
+
+is "Congratulation" ending with "on"?
+true
+
+is "Connor" ending with "n"?
+false
+
+is "Walking on water and developing software from a specification are easy if both are frozen" ending with "specification"?
+false
+
+is "He has to give me a new name" ending with "name"?
+true
+
+is "Open sesame" ending with "same"?
+true
+
+is "Open sesame" ending with "game"?
+false
+
+is "If you want to save our world, you must hurry. We don't know how much longer we can withstand the nothing" ending with "mountain"?
+false
+
+is "Abstraction" ending with "action"?
+true
+
 ```
+
+---
+
 
