@@ -16,6 +16,7 @@ Repositori ini berisi dokumentasi dan kode latihan harian saya selama mempelajar
 - [9. Algoritma Pemotong String (Truncate a String Algorithm)](#9-algoritma-pemotong-string-truncate-a-string-algorithm)
 - [10. Kalkulator Tahun Kabisat (Leap Year Calculator)](#10-kalkulator-tahun-kabisat-leap-year-calculator)
 - [11. Alat Konfirmasi Akhir String (Confirm the Ending)](#11-alat-konfirmasi-akhir-string-confirm-the-ending)
+- [12. Program Pemilih Makan Siang (Lunch Picker)](#12-program-pemilih-makan-siang-lunch-picker)
 
 ---
 
@@ -662,5 +663,125 @@ true
 ```
 
 ---
+
+## 12. Program Pemilih Makan Siang (Lunch Picker) 
+
+Pada latihan ini, saya belajar mengelola array dalam JavaScript dengan manipulasi data seperti menambah item di depan/belakang (unshift, push), menghapus item dari depan/belakang (shift, pop), memilih item secara acak (Math.random), dan menampilkan daftar menu yang tersambung (join).
+
+### Objective & User Stories
+1. Mendeklarasikan variabel lunches berisi array kosong.
+2. Membuat fungsi addLunchToEnd(arr, item) untuk menambahkan item ke akhir array dan mencetak notifikasi.
+3. Membuat fungsi addLunchToStart(arr, item) untuk menambahkan item ke awal array dan mencetak notifikasi.
+4. Membuat fungsi removeLastLunch(arr) untuk menghapus elemen terakhir dari array dan mencetak notifikasi (dengan validasi jika array kosong).
+5. Membuat fungsi removeFirstLunch(arr) untuk menghapus elemen pertama dari array dan mencetak notifikasi (dengan validasi jika array kosong).
+6. Membuat fungsi getRandomLunch(arr) untuk memilih elemen secara acak tanpa mengubah isi array asli.
+7. Membuat fungsi showLunchMenu(arr) untuk mencetak seluruh item dalam menu dipisahkan oleh koma.
+
+### Solusi Kode (Pendekatan Standar & Ringkas)
+```javascript
+const lunches = [];
+
+function addLunchToEnd(arr, item) {
+  arr.push(item);
+  console.log(`${item} added to the end of the lunch menu.`);
+  return arr;
+}
+
+function addLunchToStart(arr, item) {
+  arr.unshift(item);
+  console.log(`${item} added to the start of the lunch menu.`);
+  return arr;
+}
+
+function removeLastLunch(arr) {
+  if (arr.length === 0) {
+    console.log("No lunches to remove.");
+  } else {
+    const removedItem = arr.pop();
+    console.log(`${removedItem} removed from the end of the lunch menu.`);
+  }
+  return arr;
+}
+
+function removeFirstLunch(arr) {
+  if (arr.length === 0) {
+    console.log("No lunches to remove.");
+  } else {
+    const removedItem = arr.shift();
+    console.log(`${removedItem} removed from the start of the lunch menu.`);
+  }
+  return arr;
+}
+
+function getRandomLunch(arr) {
+  if (arr.length === 0) {
+    console.log("No lunches available.");
+  } else {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    const randomItem = arr[randomIndex];
+    console.log(`Randomly selected lunch: ${randomItem}`);
+  }
+}
+
+function showLunchMenu(arr) {
+  if (arr.length === 0) {
+    console.log("The menu is empty.");
+  } else {
+    console.log(`Menu items: ${arr.join(", ")}`);
+  }
+}
+
+console.log(removeLastLunch(lunches));
+console.log(removeFirstLunch(lunches));
+console.log(getRandomLunch(lunches));
+console.log(showLunchMenu(lunches));
+console.log(addLunchToEnd(lunches, "Tacos"));
+console.log(addLunchToEnd(["Pizza", "Tacos"], "Burger"));
+console.log(addLunchToStart(lunches, "Sushi"));
+console.log(addLunchToStart(["Burger", "Sushi"], "Pizza"));
+console.log(removeLastLunch(["Stew", "Soup", "Toast"]));
+console.log(removeLastLunch(["Sushi", "Pizza", "Noodles"]));
+console.log(removeFirstLunch(["Salad", "Eggs", "Cheese"]));
+console.log(removeFirstLunch(["Sushi", "Pizza", "Burger"]));
+console.log(getRandomLunch(lunches));
+console.log(showLunchMenu(["Greens", "Corns", "Beans"]));
+console.log(showLunchMenu(["Pizza", "Burger", "Fries", "Salad"]));
+```
+
+### Hasil Output
+
+```text
+No lunches to remove.
+[]
+No lunches to remove.
+[]
+No lunches available.
+undefined
+The menu is empty.
+undefined
+Tacos added to the end of the lunch menu.
+[ 'Tacos' ]
+Burger added to the end of the lunch menu.
+[ 'Pizza', 'Tacos', 'Burger' ]
+Sushi added to the start of the lunch menu.
+[ 'Sushi', 'Tacos' ]
+Pizza added to the start of the lunch menu.
+[ 'Pizza', 'Burger', 'Sushi' ]
+Toast removed from the end of the lunch menu.
+[ 'Stew', 'Soup' ]
+Noodles removed from the end of the lunch menu.
+[ 'Sushi', 'Pizza' ]
+Salad removed from the start of the lunch menu.
+[ 'Eggs', 'Cheese' ]
+Sushi removed from the start of the lunch menu.
+[ 'Pizza', 'Burger' ]
+Randomly selected lunch: Sushi
+undefined
+Menu items: Greens, Corns, Beans
+undefined
+Menu items: Pizza, Burger, Fries, Salad
+undefined
+
+```
 
 
