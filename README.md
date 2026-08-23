@@ -17,6 +17,7 @@ Repositori ini berisi dokumentasi dan kode latihan harian saya selama mempelajar
 - [10. Kalkulator Tahun Kabisat (Leap Year Calculator)](#10-kalkulator-tahun-kabisat-leap-year-calculator)
 - [11. Alat Konfirmasi Akhir String (Confirm the Ending)](#11-alat-konfirmasi-akhir-string-confirm-the-ending)
 - [12. Program Pemilih Makan Siang (Lunch Picker)](#12-program-pemilih-makan-siang-lunch-picker)
+- [13. Penerjemah Skor Golf (Golf Score Translator)](#13-penerjemah-skor-golf-golf-score-translator)
 
 ---
 
@@ -784,4 +785,90 @@ undefined
 
 ```
 
+---
+
+## 13. Penerjemah Skor Golf (Golf Score Translator)
+Pada latihan ini, saya belajar menggunakan struktur pengkondisian rantai if...else if...else untuk menerjemahkan nilai par dan jumlah pukulan (strokes) pada permainan golf menjadi julukan/sebutan skor yang sesuai.
+
+### Objective & User Stories
+1. Membuat fungsi bernama golfScore yang menerima dua argumen numerik (par dan strokes).
+2. Mengembalikan string "Hole-in-one!" jika strokes === 1.
+3. Mengembalikan string "Eagle" jika strokes <= par - 2.
+4. Mengembalikan string "Birdie" jika strokes === par - 1.
+5. Mengembalikan string "Par" jika strokes === par.
+6. Mengembalikan string "Bogey" jika strokes === par + 1.
+7. Mengembalikan string "Double Bogey" jika strokes === par + 2.
+8. Mengembalikan string "Go Home!" jika strokes >= par + 3.
+
+### Solusi Kode
+```javascript
+
+const names = ["Hole-in-one!", "Eagle", "Birdie", "Par", "Bogey", "Double Bogey", "Go Home!"];
+
+function golfScore(par, strokes) {
+  if (strokes === 1) {
+    return "Hole-in-one!";
+  } else if (strokes <= par - 2) {
+    return "Eagle";
+  } else if (strokes === par - 1) {
+    return "Birdie";
+  } else if (strokes === par) {
+    return "Par";
+  } else if (strokes === par + 1) {
+    return "Bogey";
+  } else if (strokes === par + 2) {
+    return "Double Bogey";
+  } else if (strokes >= par + 3) {
+    return "Go Home!";
+  }
+}
+
+console.log(golfScore(1, 1));
+console.log(golfScore(3, 1));
+console.log(golfScore(4, 1));
+console.log(golfScore(5, 1));
+console.log(golfScore(4, 2));
+console.log(golfScore(5, 2));
+console.log(golfScore(3, 2));
+console.log(golfScore(4, 3));
+console.log(golfScore(5, 4));
+console.log(golfScore(3, 3));
+console.log(golfScore(4, 4));
+console.log(golfScore(4, 5));
+console.log(golfScore(3, 5));
+console.log(golfScore(5, 9));
+
+```
+
+### Hasil Output
+
+```text
+Hole-in-one!
+Hole-in-one!
+Hole-in-one!
+Hole-in-one!
+Eagle
+Eagle
+Birdie
+Birdie
+Birdie
+Par
+Par
+Bogey
+Double Bogey
+Go Home!
+```
+
+---
+## 14.
+### Objective & User Stories
+### Solusi Kode
+```javascript
+```
+
+### Hasil Output
+
+```text
+```
+---
 
