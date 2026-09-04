@@ -19,7 +19,7 @@ Repositori ini berisi dokumentasi dan kode latihan harian saya selama mempelajar
 - [12. Program Pemilih Makan Siang (Lunch Picker)](#12-program-pemilih-makan-siang-lunch-picker)
 - [13. Penerjemah Skor Golf (Golf Score Translator)](#13-penerjemah-skor-golf-golf-score-translator)
 - [14. Membangun Validator Manifest Kargo (Build a Cargo Manifest Validator)](#14-validator-manifest-kargo-build-a-cargo-manifest-validator)
-- [15. Buat Permainan Kuis (Build a Quiz Game)](#14-buat-permainan-kuis-build-a-quiz-Game)
+- [15. Buat Permainan Kuis (Build a Quiz Game)](#15-buat-permainan-kuis-build-a-quiz-Game)
 
 ---
 
