@@ -18,6 +18,8 @@ Repositori ini berisi dokumentasi dan kode latihan harian saya selama mempelajar
 - [11. Alat Konfirmasi Akhir String (Confirm the Ending)](#11-alat-konfirmasi-akhir-string-confirm-the-ending)
 - [12. Program Pemilih Makan Siang (Lunch Picker)](#12-program-pemilih-makan-siang-lunch-picker)
 - [13. Penerjemah Skor Golf (Golf Score Translator)](#13-penerjemah-skor-golf-golf-score-translator)
+- [14. Membangun Validator Manifest Kargo (Build a Cargo Manifest Validator)](#14-validator-manifest-kargo-build-a-cargo-manifest-validator)
+- [15. Buat Permainan Kuis (Build a Quiz Game)](#14-buat-permainan-kuis-build-a-quiz-Game)
 
 ---
 
@@ -860,7 +862,263 @@ Go Home!
 ```
 
 ---
-## 14.
+## 14. Membangun Validator Manifest Kargo (Build a Cargo Manifest Validator)
+Pada latihan ini, saya belajar mengimplementasikan fungsi-fungsi JavaScript untuk melakukan normalisasi, validasi, dan pemrosesan objek manifes kargo tanpa mengubah (*mutate*) objek aslinya.
+
+### Objective & User Stories
+1. Membuat fungsi `normalizeUnits(manifest)` yang mengembalikan objek baru dengan berat (`weight`) yang dikonversi ke kilogram (1 lb = 0.45 kg) dan `unit` diatur ke `"kg"`.
+2. Membuat fungsi `validateManifest(manifest)` yang menguji setiap properti (`containerId`, `destination`, `weight`, `unit`, `hazmat`). Mengembalikan `{}` jika valid, atau objek yang berisi status `"Missing"` / `"Invalid"` untuk properti yang tidak memenuhi kriteria.
+3. Membuat fungsi `processManifest(manifest)` yang memeriksa hasil `validateManifest()`:
+   - Jika valid: mencetak `"Validation success: ${containerId}"` dan `"Total weight: ${weight} kg"` (menggunakan `normalizeUnits()`).
+   - Jika tidak valid: mencetak `"Validation error: ${containerId}"` dan mencetak objek kesalahan dari `validateManifest()`.
+4. Menggunakan dua kali pemanggilan `console.log()` pada masing-masing kasus di `processManifest()`.
+5. Tidak menggunakan `const` saat mendeklarasikan fungsi agar dapat ditetapkan kembali (*reassign*) oleh pengujian.
+
+### Solusi Kode
+```javascript
+function normalizeUnits(manifest) {
+  let copy = {
+    containerId: manifest.containerId,
+    destination: manifest.destination,
+    weight: manifest.weight,
+    unit: manifest.unit,
+    hazmat: manifest.hazmat
+  }
+  if (copy.unit === "lb") {
+    copy.unit = "kg";
+    copy.weight = copy.weight * 0.45;
+  }
+  return copy;
+}
+
+function validateManifest(manifest) {
+  let validate = {};
+
+  if (manifest.containerId === undefined) {
+    validate.containerId = "Missing";
+  } else if 
+  (
+    typeof manifest.containerId !== "number" ||
+    manifest.containerId <= 0 ||
+    manifest.containerId % 1 !== 0
+  ) {
+    validate.containerId = "Invalid";
+  }
+
+  if (manifest.destination === undefined) {
+    validate.destination = "Missing";
+  } else if 
+  (
+    typeof manifest.destination !== "string" ||
+    manifest.destination.trim() === ""
+  ) {
+    validate.destination = "Invalid";
+  }
+
+  if (manifest.weight === undefined) {
+    validate.weight = "Missing";
+  } else if 
+  (
+    typeof manifest.weight !== "number" ||
+    manifest.weight <= 0 ||
+    manifest.weight !== manifest.weight
+  ) {
+    validate.weight = "Invalid";
+  }
+
+  if (manifest.unit === undefined) {
+    validate.unit = "Missing";
+  } else if 
+  (
+    manifest.unit !== "kg" && manifest.unit !== "lb"
+  ) {
+    validate.unit = "Invalid";
+  }
+
+  if (manifest.hazmat === undefined) {
+    validate.hazmat = "Missing";
+  } else if (typeof manifest.hazmat !== "boolean") {
+    validate.hazmat = "Invalid";
+  }
+  return validate;
+}
+
+function processManifest(manifest) {
+  let errors = validateManifest(manifest);
+  let countError = Object.keys(errors).length;
+
+  if (countError === 0) {
+    console.log(`Validation success! 
+    containerId: ${manifest.containerId}
+    destination: ${manifest.destination}
+    weight: ${manifest.weight} ${manifest.unit}`);
+    let convert = normalizeUnits(manifest);
+    console.log(`Total weight: ${convert.weight} kg
+    `);
+  } else {
+    console.log(`Validation error! 
+    containerId: ${manifest.containerId}
+    destination: ${manifest.destination}
+    weight: ${manifest.weight} ${manifest.unit}`);
+    console.log(errors);
+    console.log("")
+  }
+}
+
+let check1 = processManifest(
+  {
+    containerId: 68,
+    destination: "Salinas",
+    weight: 45.45,
+    unit: "kg",
+    hazmat: true
+  });
+
+let check2 = processManifest(
+  {
+    destination: "Salinas",
+    weight: 45.45,
+    unit: "kg",
+    hazmat: true
+  });
+
+let check3 = processManifest(
+  {
+    containerId: 68,
+    destination: "Salinas",
+    weight: 45.45,
+    unit: "lb",
+    hazmat: true
+  });
+```
+
+### Hasil Output
+
+```text
+Validation success! 
+    containerId: 68
+    destination: Salinas
+    weight: 45.45 kg
+Total weight: 45.45 kg
+    
+Validation error! 
+    containerId: undefined
+    destination: Salinas
+    weight: 45.45 kg
+{ containerId: 'Missing' }
+
+Validation success! 
+    containerId: 68
+    destination: Salinas
+    weight: 45.45 lb
+Total weight: 20.4525 kg
+```
+---
+
+## 15. Buat Permainan Kuis (Build a Quiz Game)
+Pada latihan ini, saya belajar membangun logika permainan kuis sederhana menggunakan JavaScript dengan memanfaatkan manipulasi Array, Objek, serta pemilihan acak (*random choice generation*).
+
+### Objective & User Stories
+1. Membuat *array* `questions` yang berisi minimal 5 objek pertanyaan (masing-masing memiliki kunci `category`, `question`, `choices`, dan `answer`).
+2. Kunci `choices` harus berisi *array* 3 *string*, dan nilai `answer` wajib ada di dalam *array* `choices`.
+3. Membuat fungsi `getRandomQuestion(questionsArr)` untuk mengambil satu objek pertanyaan secara acak.
+4. Membuat fungsi `getRandomComputerChoice(choicesArr)` untuk mengambil satu pilihan jawaban acak.
+5. Membuat fungsi `getResults(questionsObject, computerChoice)` untuk mengevaluasi jawaban komputer dan mengembalikan pesan hasil.
+
+### Solusi Kode
+```javascript
+const questions = [
+  {
+    category: "Math",
+    question: "2 x 16 = ?",
+    choices: ["32", "30", "22"],
+    answer: "32"
+  },
+  {
+    category: "History",
+    question: "When did Indonesia gain independence?",
+    choices: [
+      "August 16, 1945",
+      "August 17, 1945",
+      "Auguts 17, 1950"
+    ],
+    answer: "August 17, 1945"
+  },
+  {
+    category: "Biology",
+    question: 'Which cell organelle is known as the "powerhouse of the cell"?',
+    choices: [
+      "Nucleus", "Mitochondria", "Ribosome"
+    ],
+    answer: "Mitochondria"
+  },
+  {
+    category: "Chemistry",
+    question: "What is the chemical symbol for Water?",
+    choices: [
+      "CO₂", "H₂O", "NaCl"
+    ],
+    answer: "H₂O"
+  },
+  {
+    category: "Physics",
+    question: "What is the standard International System of Units (SI) unit for measuring force?",
+    choices: [
+      "Joule", "Newton", "Watt"
+    ],
+    answer: "Newton"
+  }
+];
+
+function getRandomQuestion(questionsArr) {
+  const randomIndex = Math.floor(Math.random() * questionsArr.length);
+  return questionsArr[randomIndex];
+}
+
+function getRandomComputerChoice(choicesArr) {
+  const randomIndex = Math.floor(Math.random() * choicesArr.length);
+  return choicesArr[randomIndex];
+}
+
+function getResults(questionsObject, computerChoice) {
+  if (computerChoice === questionsObject.answer) {
+    return `The computer's choice is correct!`;
+  } else {
+    return `The computer's choice is wrong. The correct answer is: ${questionsObject.answer}`;
+  }
+}
+
+const randomQuestion = getRandomQuestion(questions);
+let choicesFormatted = randomQuestion.choices.join("\n");
+
+console.log(`Category: ${randomQuestion.category}`);
+console.log(`Question: ${randomQuestion.question}`);
+console.log("Choices:\n" + choicesFormatted);
+
+const computerChoices = getRandomComputerChoice(randomQuestion.choices);
+console.log("\nComputer's answer: " + computerChoices + "\n");
+
+const result = getResults(randomQuestion, computerChoices);
+console.log(result);
+```
+
+### Hasil Output
+
+```text
+Kategori: Biologi
+Pertanyaan: Organel sel manakah yang dikenal sebagai "pembangkit energi sel"?
+Pilihan:
+Inti
+Mitokondria
+Ribosom
+
+Jawaban komputer: Inti
+
+Pilihan komputer salah. Jawaban yang benar adalah: Mitokondria
+```
+---
+
+## 16.
 ### Objective & User Stories
 ### Solusi Kode
 ```javascript
@@ -871,4 +1129,3 @@ Go Home!
 ```text
 ```
 ---
-
